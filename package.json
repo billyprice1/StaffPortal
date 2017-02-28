@@ -22,6 +22,7 @@
   "dependencies": {
     "babel-register": "^6.23.0",
     "colors": "^1.1.2",
+    "console-image": "0.0.0",
     "didyoumean": "^1.2.1",
     "discord.js": "^11.0.0",
     "ejs": "^2.5.6",
