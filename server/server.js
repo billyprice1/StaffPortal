@@ -25,6 +25,7 @@ app.set('view engine', 'ejs');
 // Middleware
 app.use(minifyHTML(config.expressMinify));
 app.use('/', express.static(path.join(__dirname, '..', 'web', 'static')));
+app.use('/api', require('./routes/api'));
 app.use('/', require('./routes'));
 app.use((req, res, next) => {
     res.setHeader('X-Powered-By', 'Magic');
