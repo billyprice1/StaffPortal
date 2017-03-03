@@ -1,5 +1,5 @@
 // Setting up
-const mongoose = require('mongoose');
+const {connect, connection, model, models} = require('mongoose');
 const findOrCreate = require("mongoose-findorcreate");
 const cluster = require('cluster');
 const logging = require('../log.js');
@@ -13,7 +13,7 @@ class Driver {
   connect(config) {
     try {
       // Connect to MongoDB
-      mongoose.connect(config.db_url, {
+      connect(config.db_url, {
         autoReconnect: true,
 			  connectTimeoutMS: 30000,
 			  socketTimeoutMS: 30000,
@@ -21,10 +21,10 @@ class Driver {
 			  poolSize: 100
       });
       
-      const db = mongoose.connection;
+      const db = connection;
           
-      var Community = mongoose.model('Community', communitySchema);
-      var User = mongoose.model('User', userSchema);
+      var Community = model('Community', communitySchema);
+      var User = model('User', userSchema);
 
       // When we encounter an error
       db.on('error', function(err) {
@@ -49,10 +49,10 @@ class Driver {
     }
   }
   get() {
-    return mongoose.models;
+    return models;
   }
   getConnection() {
-    return mongoose.connection;
+    return connection;
   }
 }
 
