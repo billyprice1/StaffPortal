@@ -3,68 +3,15 @@ const mkdirp = require('mkdirp');
 const colors = require('colors');
 const cluster = require('cluster');
 const os = require('os');
+
+const clevels = require('./levelColors');
+const logging = require('./log');
+const logger = require('./logger');
+
 colors.enabled = true;
 
 if (cluster.isWorker) {
-  class Logger {
-    crit(msg, data) {
-      let tosend = {
-        message: msg,
-        data: data,
-        level: "crit"
-      }
-      cluster.worker.send(tosend)
-    }   
-    err(msg, data) {
-      let tosend = {
-        message: msg,
-        data: data,
-        level: "err"
-      }
-      cluster.worker.send(tosend)
-    }
-    warn(msg, data) {
-      let tosend = {
-        message: msg,
-        data: data,
-        level: "warn"
-      }
-      cluster.worker.send(tosend)
-    }
-    info(msg, data) {
-      let tosend = {
-        message: msg,
-        data: data,
-        level: "info"
-      }
-      cluster.worker.send(tosend)
-    }
-    log(msg, data) {
-      let tosend = {
-        message: msg,
-        data: data,
-        level: "logging"
-      }
-      cluster.worker.send(tosend)
-    }
-    debug(msg, data) {
-      let tosend = {
-        message: msg,
-        data: data,
-        level: "debug"
-      }
-      cluster.worker.send(tosend)
-    }
-    verbose(msg, data) {
-      let tosend = {
-        message: msg,
-        data: data,
-        level: "verbose"
-      }
-      cluster.worker.send(tosend)
-    }
-  }
-  module.exports = new Logger();
+  logger;
   return;
 }
 mkdirp(__dirname + '/../logs', (err) => {
@@ -72,82 +19,7 @@ mkdirp(__dirname + '/../logs', (err) => {
     winston.error(`A critical error has occured pre-boot. The staffportal instance failed to log the error to log files.\n${err.name}\n${err.message}\nStaffPortal can not continue boot.`);
   }
 })
-const clevels = {
-  levels: {
-    crit: 0,
-    err: 1,
-    warn: 2,
-    info: 3,
-    logging: 4,
-    debug: 5,
-    verbose: 6
-  },
-  colors: {
-    crit: "red",
-    err: "red",
-    warn: "yellow",
-    info: "white",
-    logging: "white",
-    debug: "gray",
-    verbose: "gray"
-  }
-}
-var logging = new (winston.Logger)({
-  exitOnError: false,
-  colors: clevels.colors,
-  levels: clevels.levels,
-  transports: [
-    new (winston.transports.Console)({
-      name: "console",
-      timestamp: _ => new Date().toUTCString(),
-      formatter: (options) => {
-        let worker_id = options.meta.worker_id;
-        if (options.level == "crit") {
-          return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${"CRITICAL".bgRed})` + ` ${options.message ? options.message : "Unknown Critical Error Occured"}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "").red}`+`\n\t\tStaffPortal can not continue and will shutdown.`).bold;
-        } else {
-          return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${options.level == "err" ? "ERROR".red : options.level.toUpperCase()[clevels.colors[options.level]]})` + ` ${(options.message ? options.message : "No message Specified")}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}`.gray 
-        }
-      },
-      colorize: true,
-      level: "info"
-    }),
-    new (winston.transports.File)({
-      name: "file-info",
-      timestamp: _ => new Date().toUTCString(),
-      formatter: (options) => {
-        let worker_id = options.meta.worker_id;
-        if (options.level == "crit") {
-          return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${"CRITICAL"})` + ` ${options.message ? options.message : "Unknown Critical Error Occured"}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}`+`\n\t\tStaffPortal can not continue and will shutdown.`);
-        } else {
-          return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${options.level == "err" ? "ERROR" : options.level.toUpperCase()})` + ` ${(options.message ? options.message : "No message Specified")}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}` 
-        }
-      },
-      filename: `${__dirname}/../logs/err-log.log`,
-      colorize: false,
-      level: "info",
-      maxsize: 10*1024*1024,
-      tailable: true,
-      json: false
-    }),
-    new (winston.transports.File)({
-      name: "file-verbose",
-      timestamp: _ => new Date().toUTCString(),
-      formatter: (options) => {
-        let worker_id = options.meta.worker_id;
-        if (options.level == "crit") {
-          return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${"CRITICAL"})` + ` ${options.message ? options.message : "Unknown Critical Error Occured"}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}`+`\n\t\tStaffPortal can not continue and will shutdown.`);
-        } else {
-          return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${options.level == "err" ? "ERROR" : options.level.toUpperCase()})` + ` ${(options.message ? options.message : "No message Specified")}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}` 
-        }
-      },
-      filename: `${__dirname}/../logs/verbose.log`,
-      colorize: false,
-      level: "verbose",
-      maxsize: 10*1024*1024,
-      tailable: true
-    })
-  ]
-});
+
 if (process.argv[2] == "DEBUG") {
   logging.add(
    new (winston.transports.File)({

@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const findOrCreate = require("mongoose-findorcreate");
 const cluster = require('cluster');
-const logging = require('../console.js');
+const logging = require('../log.js');
 const userSchema = require('./schemas/user');
 const communitySchema = require('./schemas/community');
 
