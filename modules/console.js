@@ -4,58 +4,59 @@ const colors = require('colors');
 const cluster = require('cluster');
 const os = require('os');
 colors.enabled = true;
+
 if (cluster.isWorker) {
-  logger = {
-    crit: (msg, data) => {
-      tosend = {
+  class Logger {
+    crit(msg, data) {
+      let tosend = {
         message: msg,
         data: data,
         level: "crit"
       }
       cluster.worker.send(tosend)
-    },    
-    err: (msg, data) => {
-      tosend = {
+    }   
+    err(msg, data) {
+      let tosend = {
         message: msg,
         data: data,
         level: "err"
       }
       cluster.worker.send(tosend)
-    },
-    warn: (msg, data) => {
-      tosend = {
+    }
+    warn(msg, data) {
+      let tosend = {
         message: msg,
         data: data,
         level: "warn"
       }
       cluster.worker.send(tosend)
-    },
-    info: (msg, data) => {
-      tosend = {
+    }
+    info(msg, data) {
+      let tosend = {
         message: msg,
         data: data,
         level: "info"
       }
       cluster.worker.send(tosend)
-    },
-    log: (msg, data) => {
-      tosend = {
+    }
+    log(msg, data) {
+      let tosend = {
         message: msg,
         data: data,
         level: "logging"
       }
       cluster.worker.send(tosend)
-    },
-    debug: (msg, data) => {
-      tosend = {
+    }
+    debug(msg, data) {
+      let tosend = {
         message: msg,
         data: data,
         level: "debug"
       }
       cluster.worker.send(tosend)
-    },
-    verbose: (msg, data) => {
-      tosend = {
+    }
+    verbose(msg, data) {
+      let tosend = {
         message: msg,
         data: data,
         level: "verbose"
@@ -63,12 +64,12 @@ if (cluster.isWorker) {
       cluster.worker.send(tosend)
     }
   }
-  module.exports = logger
+  module.exports = new Logger();
   return;
 }
-mkdirp(__dirname + '/../logs', function(err) {
+mkdirp(__dirname + '/../logs', (err) => {
   if (err) {
-    winston.error("A critical error has occured pre-boot. The staffportal instance failed to log the error to log files.\n"+err.name+"\n"+err.message+"\nStaffPortal can not continue boot.")
+    winston.error(`A critical error has occured pre-boot. The staffportal instance failed to log the error to log files.\n${err.name}\n${err.message}\nStaffPortal can not continue boot.`);
   }
 })
 const clevels = {
@@ -98,9 +99,9 @@ var logging = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({
       name: "console",
-      timestamp: () => {return new Date().toUTCString()},
-      formatter: function(options) {
-        var worker_id = options.meta.worker_id;
+      timestamp: _ => new Date().toUTCString(),
+      formatter: (options) => {
+        let worker_id = options.meta.worker_id;
         if (options.level == "crit") {
           return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${"CRITICAL".bgRed})` + ` ${options.message ? options.message : "Unknown Critical Error Occured"}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "").red}`+`\n\t\tStaffPortal can not continue and will shutdown.`).bold;
         } else {
@@ -112,16 +113,16 @@ var logging = new (winston.Logger)({
     }),
     new (winston.transports.File)({
       name: "file-info",
-      timestamp: () => {return new Date().toUTCString()},
-      formatter: function(options) {
-        var worker_id = options.meta.worker_id;
+      timestamp: _ => new Date().toUTCString(),
+      formatter: (options) => {
+        let worker_id = options.meta.worker_id;
         if (options.level == "crit") {
           return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${"CRITICAL"})` + ` ${options.message ? options.message : "Unknown Critical Error Occured"}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}`+`\n\t\tStaffPortal can not continue and will shutdown.`);
         } else {
           return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${options.level == "err" ? "ERROR" : options.level.toUpperCase()})` + ` ${(options.message ? options.message : "No message Specified")}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}` 
         }
       },
-      filename: __dirname+"/../logs/err-info.log",
+      filename: `${__dirname}/../logs/err-log.log`,
       colorize: false,
       level: "info",
       maxsize: 10*1024*1024,
@@ -130,16 +131,16 @@ var logging = new (winston.Logger)({
     }),
     new (winston.transports.File)({
       name: "file-verbose",
-      timestamp: () => {return new Date().toUTCString()},
-      formatter: function(options) {
-        var worker_id = options.meta.worker_id;
+      timestamp: _ => new Date().toUTCString(),
+      formatter: (options) => {
+        let worker_id = options.meta.worker_id;
         if (options.level == "crit") {
           return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${"CRITICAL"})` + ` ${options.message ? options.message : "Unknown Critical Error Occured"}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}`+`\n\t\tStaffPortal can not continue and will shutdown.`);
         } else {
           return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${options.level == "err" ? "ERROR" : options.level.toUpperCase()})` + ` ${(options.message ? options.message : "No message Specified")}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}` 
         }
       },
-      filename: __dirname+"/../logs/verbose.log",
+      filename: `${__dirname}/../logs/verbose.log`,
       colorize: false,
       level: "verbose",
       maxsize: 10*1024*1024,
@@ -151,23 +152,23 @@ if (process.argv[2] == "DEBUG") {
   logging.add(
    new (winston.transports.File)({
      name: "file-exceptions",
-      timestamp: () => {return new Date().toUTCString()},
+      timestamp: _ => new Date().toUTCString(),
       formatter: function(options) {
-        var worker_id = options.meta.worker_id;
+        let worker_id = options.meta.worker_id;
         if (options.level == "crit") {
           return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${"CRITICAL"})` + ` ${options.message ? options.message : "Unknown Critical Error Occured"}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}`+`\n\t\tStaffPortal can not continue and will shutdown.`);
         } else {
           return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : "master"}) (${options.level == "err" ? "ERROR" : options.level.toUpperCase()})` + ` ${(options.message ? options.message : "No message Specified")}` + `${(options.meta && Object.keys(options.meta).length ? "\n\t" + JSON.stringify(options.meta) : "")}` 
         }
       },
-     filename: __dirname+"/../logs/exceptions.log",
-     colorize: false,
-     level: "crit",
-     maxsize: 10*1024*1024,
-     tailable: true,
-     handleExceptions: true,
-     humanReadableUnhandledException: true
-   })
+      filename: `${__dirname}/../logs/exceptions.log`,
+      colorize: false,
+      level: "crit",
+      maxsize: 10*1024*1024,
+      tailable: true,
+      handleExceptions: true,
+      humanReadableUnhandledException: true
+    })
   )
 }
 logging.on('error', function (err) {
