@@ -1,16 +1,10 @@
-const {Schema} = require('mongoose');
+const mongoose = require('mongoose')
 
-const userSchema = require('./user');
-const rolesSchema = require('./role');
+const userSchema = require('./user')
+const rolesSchema = require('./role')
 
-class StaffMember extends Schema {
-  constructor() {
-    super({
-      user: userSchema,
-      roles: [rolesSchema],
-      superAdmin: Boolean
-    });
-  }
-}
-
-module.exports = new StaffMember();
+module.exports = new mongoose.Schema({
+  user: userSchema,
+  roles: [rolesSchema],
+  superAdmin: Boolean
+})

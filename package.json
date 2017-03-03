@@ -2,7 +2,7 @@
   "name": "staffportal",
   "version": "0.0.1",
   "description": "Connect your staff team!",
-  "main": "start.js",
+  "main": "index.js",
   "scripts": {
     "start-dev": "nodemon .",
     "start": "node .",

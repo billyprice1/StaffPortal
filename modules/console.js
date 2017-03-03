@@ -1,12 +1,12 @@
-const winston = require("winston");
-const mkdirp = require('mkdirp');
-const colors = require('colors');
-const cluster = require('cluster');
-const os = require('os');
+import winston from 'winston';
+import mkdirp from 'mkdirp';
+import colors from 'colors';
+import cluster from 'cluster';
+import os from 'os';
 
-const clevels = require('./levelColors');
-const logging = require('./log');
-const logger = require('./logger');
+import clevels from './levelColors';
+import logging from './log';
+import logger from './logger';
 
 colors.enabled = true;
 

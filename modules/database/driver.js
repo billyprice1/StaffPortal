@@ -1,11 +1,10 @@
 // Setting up
-const {connect, connection, model, models} = require('mongoose');
-const findOrCreate = require("mongoose-findorcreate");
-const cluster = require('cluster');
-const logging = require('../log.js');
-const userSchema = require('./schemas/user');
-const communitySchema = require('./schemas/community');
-
+import {connect, connection, model, models} from 'mongoose';
+import findOrCreate from "mongoose-findorcreate";
+import cluster from 'cluster';
+import logging from '../log.js';
+import userSchema from './schemas/user';
+import communitySchema from './schemas/community';
 userSchema.plugin(findOrCreate);
 communitySchema.plugin(findOrCreate);
 
@@ -23,8 +22,8 @@ class Driver {
       
       const db = connection;
           
-      var Community = model('Community', communitySchema);
-      var User = model('User', userSchema);
+      const Community = model('Community', communitySchema);
+      const User = model('User', userSchema);
 
       // When we encounter an error
       db.on('error', function(err) {

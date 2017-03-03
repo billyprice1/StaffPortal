@@ -1,13 +1,7 @@
-const {Schema} = require('mongoose');
+const mongoose = require('mongoose')
 
-class CommunityConnections extends Schema {
-  constructor() {
-    super({
-      platform: {type: String, required: true},
-      config: {type: Object},
-      authData: {type: Object}
-    });
-  }
-}
-
-module.exports = new CommunityConnections();
+module.exports = new mongoose.Schema({
+  platform: {type: String, required: true},
+  config: {type: Object},
+  authData: {type: Object}
+})

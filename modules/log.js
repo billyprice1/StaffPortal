@@ -1,5 +1,5 @@
-const winston = require('winston');
-const clevels = require('./levelColors');
+import winston from 'winston';
+import clevels from './levelColors';
 
 class Log extends winston.Logger {
   constructor() {

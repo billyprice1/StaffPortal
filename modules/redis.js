@@ -1,6 +1,6 @@
-const redis = require('redis')
-const bluebird = require('bluebird')
-const cluster = require('cluster')
+import redis from 'redis';
+import bluebird from 'bluebird';
+import cluster from 'cluster';
 
 bluebird.promisifyAll(redis.RedisClient.prototype);
 bluebird.promisifyAll(redis.Multi.prototype);
