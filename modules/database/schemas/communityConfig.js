@@ -1,11 +1,17 @@
-const mongoose = require('mongoose')
+const {Schema} = require('mongoose');
 
-const staffMemberSchema = require('./staffMember')
-const roleSchema = require('./role')
+const staffMemberSchema = require('./staffMember');
+const roleSchema = require('./role');
 
-module.exports = new mongoose.Schema({
-  name: {type: String, required: true},
-  staff: [staffMemberSchema],
-  avatar: {type: Buffer},
-  roles: [roleSchema]
-})
+class CommunityConfig extends Schema {
+  constructor() {
+    super({
+      name: {type: String, required: true},
+      staff: [staffMemberSchema],
+      avatar: {type: Buffer},
+      roles: [roleSchema]
+    });
+  }
+}
+
+module.exports = new CommunityConfig();
