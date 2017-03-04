@@ -103,4 +103,3 @@ if (cluster.isMaster) {
     }
   })
 }
-module.exports = logging

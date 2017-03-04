@@ -5,7 +5,7 @@ export default new class Logger {
     let tosend = {
       message: msg,
       data: data,
-      level: "crit"
+      level: 'crit'
     }
     cluster.worker.send(tosend)
   }   
@@ -13,7 +13,7 @@ export default new class Logger {
     let tosend = {
       message: msg,
       data: data,
-      level: "err"
+      level: 'err'
     }
     cluster.worker.send(tosend)
   }
@@ -21,7 +21,7 @@ export default new class Logger {
     let tosend = {
       message: msg,
       data: data,
-      level: "warn"
+      level: 'warn'
     }
     cluster.worker.send(tosend)
   }
@@ -29,7 +29,7 @@ export default new class Logger {
     let tosend = {
       message: msg,
       data: data,
-      level: "info"
+      level: 'info'
     }
     cluster.worker.send(tosend)
   }
@@ -37,7 +37,7 @@ export default new class Logger {
     let tosend = {
       message: msg,
       data: data,
-      level: "logging"
+      level: 'logging'
     }
     cluster.worker.send(tosend)
   }
@@ -45,7 +45,7 @@ export default new class Logger {
     let tosend = {
       message: msg,
       data: data,
-      level: "debug"
+      level: 'debug'
     }
     cluster.worker.send(tosend)
   }
@@ -53,7 +53,7 @@ export default new class Logger {
     let tosend = {
       message: msg,
       data: data,
-      level: "verbose"
+      level: 'verbose'
     }
     cluster.worker.send(tosend)
   }

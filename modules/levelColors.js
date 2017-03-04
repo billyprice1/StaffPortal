@@ -9,13 +9,13 @@ const colors = {
         verbose: 6
     },
     colors: {
-        crit: "red",
-        err: "red",
-        warn: "yellow",
-        info: "white",
-        logging: "white",
-        debug: "gray",
-        verbose: "gray"
+        crit: 'red',
+        err: 'red',
+        warn: 'yellow',
+        info: 'white',
+        logging: 'white',
+        debug: 'gray',
+        verbose: 'gray'
     }
 }
 
