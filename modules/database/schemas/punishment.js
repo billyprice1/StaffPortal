@@ -14,7 +14,7 @@ export default new class Punishment extends Schema {
       reason: {type: String},
       date: {type: Date, required: true},
       info: {type: String},
-      violator: userSchema,
+      violator: {ref: 'User', type: Schema.Types.ObjectId},
       community: communitySchema
     });
   }

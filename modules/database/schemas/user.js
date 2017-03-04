@@ -5,7 +5,7 @@ import userConfigSchema from './userConfig';
 import punishmentSchema from './punishment';
 import userConnectionSchema from './userConnection';
 
-module.exports = new class User extends Schema {
+export default new class User extends Schema {
   constructor() {
     super({
       auth: authSchema,

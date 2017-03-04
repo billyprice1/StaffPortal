@@ -10,7 +10,7 @@ export default new class Community extends Schema {
       id: {type: String, unique: true, required: true},
       date_created: {type: Date, required: true},
       config: communityConfigSchema,
-      creator: userSchema,
+      creator: {ref: 'User', type: Schema.Types.ObjectId},
       connections: [communityConnectionSchema]
     });
   }
