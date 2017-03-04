@@ -4,7 +4,6 @@ import userSchema from './user';
 import staffMemberSchema from './staffMember';
 import communitySchema from './community';
 
-// The punishment document
 export default new class Punishment extends Schema {
   constructor() {
     super({
