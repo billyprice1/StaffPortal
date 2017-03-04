@@ -1,4 +1,4 @@
-module.exports = {
+const colors = {
     levels: {
         crit: 0,
         err: 1,
@@ -18,3 +18,5 @@ module.exports = {
         verbose: "gray"
     }
 }
+
+export default colors;

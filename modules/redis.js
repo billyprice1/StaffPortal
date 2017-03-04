@@ -10,4 +10,4 @@ client.on('error', (err) => {
   //TODO
 })
 
-module.exports = client;
+export default client;

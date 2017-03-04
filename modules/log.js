@@ -1,7 +1,7 @@
 import winston from 'winston';
 import clevels from './levelColors';
 
-class Log extends winston.Logger {
+export default new class Log extends winston.Logger {
   constructor() {
     super({
       exitOnError: false,
@@ -61,5 +61,3 @@ class Log extends winston.Logger {
     })
   }
 }
-
-module.exports = new Log();
