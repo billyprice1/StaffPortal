@@ -1,13 +1,17 @@
-const mongoose = require('mongoose')
+import {Schema} from 'mongoose';
 
-const communityConfigSchema = require('./communityConfig')
-const userSchema = require('./user')
-const communityConnectionSchema = require('./communityConnection')
+import communityConfigSchema from './communityConfig';
+import userSchema from './user';
+import communityConnectionSchema from './communityConnection';
 
-module.exports = new mongoose.Schema({
-  id: {type: String, unique: true, required: true},
-  date_created: {type: Date, required: true},
-  config: communityConfigSchema,
-  creator: userSchema,
-  connections: [communityConnectionSchema]
-})
+export default new class Community extends Schema {
+  constructor() {
+    super({
+      id: {type: String, unique: true, required: true},
+      date_created: {type: Date, required: true},
+      config: communityConfigSchema,
+      creator: {ref: 'User', type: Schema.Types.ObjectId},
+      connections: [communityConnectionSchema]
+    });
+  }
+}

@@ -1,7 +1,11 @@
-const mongoose = require('mongoose')
+import {Schema} from 'mongoose';
 
-module.exports = new mongoose.Schema({
-  platform: {type: String, required: true},
-  userData: {type: Object},
-  config: {type: Object}
-})
+export default new class UserConnection extends Schema {
+  constructor() {
+    super({
+      platform: {type: String, required: true},
+      userData: {type: Object},
+      config: {type: Object}
+    });
+  }
+}

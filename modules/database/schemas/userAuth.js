@@ -1,7 +1,9 @@
-const mongoose = require('mongoose');
+import {Schema} from 'mongoose';
 
-module.exports = {
+const UserAuth = {
   hash: {type: String, required: true, min: 8},
   salt: {type: String, required: true, length: 10},
   iterations: {type: Number, required: true}
 }
+
+export default UserAuth;

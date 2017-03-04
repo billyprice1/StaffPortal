@@ -1,11 +1,15 @@
-const mongoose = require('mongoose')
+import {Schema} from 'mongoose';
 
-const staffMemberSchema = require('./staffMember')
-const roleSchema = require('./role')
+import staffMemberSchema from './staffMember';
+import roleSchema from './role';
 
-module.exports = new mongoose.Schema({
-  name: {type: String, required: true},
-  staff: [staffMemberSchema],
-  avatar: {type: Buffer},
-  roles: [roleSchema]
-})
+export default new class CommunityConfig extends Schema {
+  constructor() {
+    super({
+      name: {type: String, required: true},
+      staff: [staffMemberSchema],
+      avatar: {type: Buffer},
+      roles: [roleSchema]
+    });
+  }
+}

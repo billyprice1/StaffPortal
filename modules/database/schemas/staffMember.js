@@ -1,10 +1,14 @@
-const mongoose = require('mongoose')
+import {Schema} from 'mongoose';
 
-const userSchema = require('./user')
-const rolesSchema = require('./role')
+import userSchema from './user';
+import rolesSchema from './role';
 
-module.exports = new mongoose.Schema({
-  user: userSchema,
-  roles: [rolesSchema],
-  superAdmin: Boolean
-})
+export default new class StaffMemeber extends Schema {
+  constructor() {
+    super({
+      user: {ref: 'User', type: Schema.Types.ObjectId},
+      roles: [rolesSchema],
+      superAdmin: Boolean
+    });
+  }
+}
