@@ -28,7 +28,7 @@ app.use('/api', require('./routes/api'));
 app.use('/', require('./routes'));
 app.use((req, res, next) => {
     res.setHeader('X-Powered-By', 'Magic');
-    next()
+    next();
 });
 
 // Start listening on defined port & notify master
