@@ -1,11 +1,7 @@
-import {Schema} from 'mongoose';
+const mongoose = require('mongoose')
 
-export default new class CommunityCpnnection extends Schema {
-  constructor() {
-    super({
-      platform: {type: String, required: true},
-      config: {type: Object},
-      authData: {type: Object}
-    });
-  }
-}
+module.exports = new mongoose.Schema({
+  platform: {type: String, required: true},
+  config: {type: Object},
+  authData: {type: Object}
+})

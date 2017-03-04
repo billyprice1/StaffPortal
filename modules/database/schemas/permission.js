@@ -1,10 +1,6 @@
-import {Schema} from 'mongoose';
+const mongoose = require('mongoose')
 
-export default new class Permission extends Schema {
-  constructor() {
-    super({
-      name: {type: String, required: true},
-      allow: {type: Boolean, required: true}
-    });
-  }
-}
+module.exports = new mongoose.Schema({
+  name: {type: String, required: true},
+  allow: {type: Boolean, required: true}
+})
