@@ -1,11 +1,7 @@
-import {Schema} from 'mongoose';
+const mongoose = require('mongoose')
 
-export default new class UserConnection extends Schema {
-  constructor() {
-    super({
-      platform: {type: String, required: true},
-      userData: {type: Object},
-      config: {type: Object}
-    });
-  }
-}
+module.exports = new mongoose.Schema({
+  platform: {type: String, required: true},
+  userData: {type: Object},
+  config: {type: Object}
+})
