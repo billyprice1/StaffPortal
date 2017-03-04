@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 // Cluster
 import cluster from 'cluster';
 
