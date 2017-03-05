@@ -8,6 +8,7 @@ const App = (props) => (
             {name: 'Home', to: '/'},
             {name: 'About', to: '/about'},
             {name: 'Login', to: '/login'},
+            {name: 'List Demo', to: '/list'},
         ]}/>
         <main className="main">{props.children}</main>
     </div>
