@@ -19,14 +19,14 @@ function reducer(state) {
 }
 
 let state = window.__INITIAL_APP_STATE;
-
 delete window.__INITIAL_APP_STATE;
 
 let store = createStore(reducer, state, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 const mount = document.getElementById('app-mount');
 
-ReactDOM.render(
+ReactDOM.render((
     <Provider store={store}>
         <App/>
-    </Provider>, mount);
+    </Provider>
+), mount);
