@@ -38,7 +38,7 @@ app.set('views', path.join(__dirname, '..', 'web', 'views'));
 app.set('view engine', 'ejs');
 
 // Middleware
-app.use('/graphql', graphqlHTTP({
+app.use('/api/graphql', graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true
