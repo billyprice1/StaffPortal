@@ -7,7 +7,7 @@ import os from 'os';
 import clevels from './levelColors';
 import logging from './log';
 
-colors.enabled = true;
+colors.enabled = false;
 
 if (cluster.isWorker) {
   require('./logger');

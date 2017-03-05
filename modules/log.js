@@ -14,9 +14,9 @@ export default new class Log extends winston.Logger {
           formatter: (options) => {
             let worker_id = options.meta.worker_id;
             if (options.level == 'crit') {
-              return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : 'master'}) (${'CRITICAL'.bgRed})` + ` ${options.message ? options.message : 'Unknown Critical Error Occured'}` + `${(options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '').red}`+`\n\t\tStaffPortal can not continue and will shutdown.`).bold;
+              return (`(${options.timestamp()}) (Worker: ${worker_id ? worker_id : 'master'}) (${'CRITICAL'})` + ` ${options.message ? options.message : 'Unknown Critical Error Occured'}` + `${(options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '')}`+`\n\t\tStaffPortal can not continue and will shutdown.`);
             } else {
-              return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : 'master'}) (${options.level == 'err' ? 'ERROR'.red : options.level.toUpperCase()[clevels.colors[options.level]]})` + ` ${(options.message ? options.message : 'No message Specified')}` + `${(options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '')}`.gray 
+              return `(${options.timestamp()}) (Worker: ${worker_id ? worker_id : 'master'}) (${options.level == 'err' ? 'ERROR' : options.level.toUpperCase()[clevels.colors[options.level]]})` + ` ${(options.message ? options.message : 'No message Specified')}` + `${(options.meta && Object.keys(options.meta).length ? '\n\t' + JSON.stringify(options.meta) : '')}` 
             }
           },
           colorize: true,
