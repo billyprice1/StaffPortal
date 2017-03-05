@@ -50,7 +50,6 @@ class ListItem extends React.Component {
                 <h1 onClick={this.handleClick.bind(this)}>{this.props.title}</h1>
                 <div style={{display: this.state.open ? 'block' : 'none'}}>
                     <i className="material-icons" onClick={this.handleClose.bind(this)}>close</i>
-                    {this.props.body}
                 </div>
             </div>
         )
