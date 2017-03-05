@@ -1,5 +1,7 @@
-logs/
-node_modules/
-
 .idea/
 .vscode/
+
+logs/
+
+node_modules/
+npm-debug.log
