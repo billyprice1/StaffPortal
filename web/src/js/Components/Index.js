@@ -4,7 +4,11 @@ import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
-// App Styles
+// Polyfills
+import '../inert';
+import 'web-animations-js/web-animations-next.min';
+
+// SASS
 // (Seems, ridiculous but don't remove this. Webpack builds, then spits the css file out into the static dir)
 import '../../css/styles.sass'
 
