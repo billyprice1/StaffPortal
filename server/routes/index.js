@@ -9,7 +9,7 @@ import {Provider} from 'react-redux';
 import {createStore} from 'redux';
 
 // Components
-import routes from '../../../StaffPortal/web/src/js/Components/Routes';
+import routes from '../../../StaffPortal/web/src/js/Components/Routes/';
 import NotFound from '../../../StaffPortal/web/src/js/Components/Routes/404';
 
 import * as fs from 'fs';

@@ -1,5 +1,5 @@
 {
-  "port": 8080,
+  "port": 8241,
   "expressMinify": {
     "override": true,
     "exception_url": false,

@@ -31,6 +31,7 @@
     "express-minify": "^0.2.0",
     "express-minify-html": "^0.9.0",
     "graphql": "^0.9.1",
+    "graphql-relay": "^0.5.1",
     "mkdirp": "^0.5.1",
     "mongoose": "^4.8.5",
     "mongoose-findorcreate": "^1.0.0",

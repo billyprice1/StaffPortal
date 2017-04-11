@@ -23,8 +23,8 @@ module.exports = {
       
       const db = mongoose.connection
           
-      var Community = mongoose.model('Community', communitySchema)
-      var User = mongoose.model('User', userSchema)
+      var Community = mongoose.model('community', communitySchema)
+      var User = mongoose.model('user', userSchema)
       
       // When we encounter an error
       db.on('error', function(err) {

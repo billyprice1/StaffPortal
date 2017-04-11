@@ -23,6 +23,8 @@ app.set('views', path.join(__dirname, '..', 'web', 'views'));
 app.set('view engine', 'ejs');
 
 // Middleware
+app.use('/api/:v/:p', require('./routes/api'));
+app.use('/api/:v', require('./routes/api'))
 app.use(minifyHTML(config.expressMinify));
 app.use('/', express.static(path.join(__dirname, '..', 'web', 'static')));
 app.use('/', require('./routes'));
