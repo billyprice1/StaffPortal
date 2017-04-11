@@ -16,8 +16,8 @@ try {
         // Restart worker by suicide
         cluster.worker.kill()
       }
-      // Set workers to listen for incoming connections  
-      require("./server");
+      // Set workers to listen for incoming connections
+      require("./server/");
     }
 } catch (err) {
     logging.crit("A critical error occured!", {err_name: err.name, err_message: err.message, err_stack: err.stack})

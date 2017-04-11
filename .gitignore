@@ -1,6 +1,7 @@
-/logs/err-info.log
-/logs/verbose.log
-node_modules
 .idea/
-
 .vscode/
+
+logs/
+
+node_modules/
+npm-debug.log

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router';
+import { Link } from 'react-router';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -13,8 +13,8 @@ export default class Header extends React.Component {
         if (typeof window !== 'undefined') {
             this.mediaQuery = window.matchMedia('(min-width: 769px)');
             this.mediaQuery.addListener((mq) => {
-                if(mq.matches)
-                    this.setState({open: false});
+                if (mq.matches)
+                    this.setState({ open: false });
             });
         }
     }
@@ -30,20 +30,20 @@ export default class Header extends React.Component {
     };
 
     render() {
-        const {nav} = this.props;
+        const { nav } = this.props;
         return (
             <header className="header">
-                <div className="logo"/>
+                <div className="logo" />
                 <i className={`material-icons nav-icon ${this.state.open ? 'open' : ''}`}
-                   onClick={this.handleClick.bind(this)}>&#xE313;</i>
-                <nav className={`nav ${this.state.open ? 'open' : ''}`} role="navigation" onClick={this.handleClick.bind(this)}>
-                    {nav.map((nav, i) => (
-                        <Link to={nav.to}
-                              className="link"
-                              activeClassName="active"
-                              onlyActiveOnIndex={true}
-                              key={i}
-                              onClick={this.handleClick.bind(this)}>{nav.name}</Link>
+                    onClick={this.handleClick.bind(this)}>&#xE313;</i>
+                <nav className={`nav ${this.state.open ? 'open' : ''}`} role="navigation">
+                    {nav.map((item, i) => (
+                        <Link to={item.to}
+                            className="link"
+                            activeClassName="active"
+                            onlyActiveOnIndex={true}
+                            key={i}
+                            onClick={this.handleClick.bind(this)}>{item.name}</Link>
                     ))}
                 </nav>
             </header>

@@ -1,9 +1,14 @@
-const winston = require("winston");
-const mkdirp = require('mkdirp');
-const colors = require('colors');
-const cluster = require('cluster');
-const os = require('os');
-colors.enabled = true;
+import winston from 'winston';
+import mkdirp from 'mkdirp';
+import colors from 'colors';
+import cluster from 'cluster';
+import os from 'os';
+
+import clevels from './levelColors';
+import logging from './log';
+
+colors.enabled = false;
+
 if (cluster.isWorker) {
   logger = {
     crit: (msg, data) => {
@@ -230,4 +235,3 @@ if (cluster.isMaster) {
     }
   })
 }
-module.exports = logging
