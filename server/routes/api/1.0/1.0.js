@@ -1,11 +1,11 @@
-const logging = require('../../../modules/console')
+const logging = require('../../../../modules/console')
 
 var express = require('express');
 var graphqlHTTP = require('express-graphql');
 var { buildSchema } = require('graphql');
 
-const redis = require('../../../modules/redis')
-const db = require('../../../modules/database/driver')
+const redis = require('../../../../modules/redis')
+const db = require('../../../../modules/database/driver')
 const models = db.get()
 
 const crypto = require('crypto')
