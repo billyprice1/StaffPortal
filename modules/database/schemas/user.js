@@ -8,7 +8,7 @@ const userConnectionSchema = require('./userConnection')
 module.exports = new mongoose.Schema({
   auth: authSchema,
   config: userConfigSchema,
-  id: {type: String, unique: true},
+  id: {type: Number, unique: true},
   date_created: {type: Date},
   punishments: punishmentSchema,
   connections: [userConnectionSchema]

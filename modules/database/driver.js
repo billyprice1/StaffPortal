@@ -22,7 +22,9 @@ module.exports = {
       });
       
       const db = mongoose.connection
-          
+			// Must set native promise library manually since mpromise is deprecated :C
+			mongoose.Promise = global.Promise
+			
       var Community = mongoose.model('Community', communitySchema)
       var User = mongoose.model('User', userSchema)
       
@@ -42,7 +44,6 @@ module.exports = {
         })
         return true
       })
-      
     } catch(err) {
       logging.err("A worker suffered an error while setting up mongodb!", {"err_name":err.name,"err_message":err.message})
       logging.debug("Worker stack trace: ", {"stack": err.stack})

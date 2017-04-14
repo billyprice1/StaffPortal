@@ -179,6 +179,7 @@ if (cluster.isMaster) {
   worker_agent_ready = 0;
   worker_db_ready = 0;
   cluster.on("message", (worker, msg, hande) => {
+    if (!msg.data) {msg.data = {}}
     if (!msg.type || msg.type == "log") {
       msg.data.worker_id = worker.id
       logging[msg.level](msg.message, msg.data);
