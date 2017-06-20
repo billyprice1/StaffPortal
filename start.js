@@ -20,5 +20,5 @@ try {
      require("./server");
     }
 } catch (err) {
-    logging.crit("A critical error occured!", {err_name: err.name, err_message: err.message, err_stack: err.stack})
+    logging.crit("A critical error occurred!", {err_name: err.name, err_message: err.message, err_stack: err.stack})
 }
